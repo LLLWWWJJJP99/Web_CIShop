@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title></title>
+	<link href="<?php echo base_url('application/views/styles/general.css'); ?>" rel="stylesheet" type="text/css" />
+	<link href="<?php echo base_url('application/views/styles/main.css'); ?>" rel="stylesheet" type="text/css" />
+
+	<script type="text/javascript" src="<?php echo base_url('application/views/js/utils.js'); ?>"></script>
+<!--   <script type="text/javascript" src="<?php echo base_url('application/views/js/selectzone.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('application/views/js/colorselector.js'); ?>"></script> -->
+
+</head>
+<body>
+<h1>
+	<span class="action-span"><a href="<?php echo site_url('admin/goods/index') ;?>">Product List</a></span>
+	<span class="action-span1"><a href="index.php?act=main">SHOP Management Center </a> </span><span id="search_id" class="action-span1"> - Edit Product Information </span>
+	<div style="clear:both"></div>
+</h1>
+
+<div class="tab-div">
+    <!-- tab bar -->
+    <div id="tabbar-div">
+      <p>
+        <span class="tab-front" id="general-tab">General Information</span>
+		<!-- <span class="tab-back" id="detail-tab">Brief Description</span> -->
+		<span class="tab-back" id="mix-tab">Other Information</span>
+		<span class="tab-back" id="properties-tab">Product Attribute</span>
+		<!-- <span class="tab-back" id="gallery-tab">Product Gallery</span> -->
+      </p>
+    </div>
+
+    <!-- tab body -->
+    <div id="tabbody-div">
+      <form enctype="multipart/form-data" action="<?php echo site_url('admin/goods/update');?>" method="post" name="theForm">
+        <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
+
+		 <!-- General Information -->
+        <table width="90%" id="general-table" align="center" style="display: table;">
+			<tbody>
+				<tr>
+					<td class="label">Product Name：</td>
+					<td><input type="text" name="goods_name" value="<?php echo $cur_good['goods_name']; ?>" size="30"><span class="require-field">*</span></td>
+				</tr>
+				<!-- <tr>
+          <td class="label">Product ID： </td>
+          <td><input type="text" name="goods_sn" value="ECS000032" size="20" onblur="checkGoodsSn(this.value,'32')"><span id="goods_sn_notice"></span><br>
+          <span class="notice-span" style="display:block" id="noticeGoodsSN">If you do not enter a Product ID, the system will generate a unique ID for you.</span></td>
+              </tr> -->
+			<tr>
+				<td class="label">Product Category：</td>
+				<td>
+					<select name="cat_id" onchange="hideCatDiv()">
+						<?php foreach( $cates as $cate) :?>
+						<option value="<?php echo $cate['cat_id'];?>"><?php echo str_repeat('&nbsp;&nbsp;',$cate['level']);?><?php echo $cate['cat_name'];?>
+
+						</option>
+						<?php endforeach ;?>
+					</select>
+			</tr>
+			<tr>
+				<td class="label">Product Brand：</td>
+				<td>
+					<select name="brand_id" onchange="hideBrandDiv()">
+						<option value="0">Please Choose...</option>
+						<?php foreach( $brands as $brand) :?>
+
+						<option value="<?php echo $brand['brand_id'] ;?>" selected=""><?php echo $brand['brand_name']; ?></option>
+						<?php endforeach ;?>
+					</select>
+				</td>
+			</tr>
+            <!-- <tr>
+                    <td class="label">Choose Provider：</td>
+                    <td>
+                      <select name="suppliers_id" id="suppliers_id">
+                        <option value="0">No Paticular Provider</option>
+                        <option value="1">Beijing Provider</option>
+                        <option value="2">Shanghai Provider</option>
+                      </select>
+                    </td>
+                  </tr> -->
+            <!-- <tr>
+                    <td class="label">Price Here：</td>
+                    <td><input type="text" name="shop_price" value="3010.00" size="20" onblur="priceSetted()">
+                    <input type="button" value="Market Price" onclick="marketPriceSetted()">
+                    <span class="require-field">*</span></td>
+                  </tr> -->
+			<!-- <tr>
+                  <td class="label">Price with Membership：</td>
+                  <td><input type="text" name="user_price" value="3010.00" size="20" onblur="priceSetted()"></td>
+                </tr> -->
+
+          <tr>
+            <td class="label"> Price：</td>
+            <td><input type="text" name="shop_price" value="<?php echo $cur_good['shop_price'] ;?>" size="20">
+              <!-- <input type="button" value="Integral Market Price" onclick="integral_market_price()"> -->
+            </td>
+          </tr>
+
+          <!-- <tr>
+            <td class="label"><label for="is_promote"><input type="checkbox" id="is_promote" name="is_promote" value="1" checked="checked" onclick="handlePromote(this.checked);"> Sales Price：</label></td>
+            <td id="promote_3"><input type="text" id="promote_1" name="promote_price" value="2750.00" size="20"></td>
+          </tr>
+          <tr id="promote_4">
+            <td class="label" id="promote_5">Sales Date：</td>
+            <td id="promote_6">
+              <input name="promote_start_date" type="text" id="promote_start_date" size="12" value="2009-06-01" readonly="readonly"><input name="selbtn1" type="button" id="selbtn1" onclick="return showCalendar('promote_start_date', '%Y-%m-%d', false, false, 'selbtn1');" value="Choose" class="button"> - <input name="promote_end_date" type="text" id="promote_end_date" size="12" value="2014-11-30" readonly="readonly"><input name="selbtn2" type="button" id="selbtn2" onclick="return showCalendar('promote_end_date', '%Y-%m-%d', false, false, 'selbtn2');" value="Choose" class="button">
+            </td>
+          </tr> -->
+          <tr>
+            <td class="label">Upload Product Photo：</td>
+            <td>
+              <input type="file" name="goods_img" size="35">
+                              <a href="goods.php?act=show_image&amp;img_url=images/200905/goods_img/32_G_1242110760868.jpg" target="_blank"><img style="width:30px;height: 30px" src="<?php echo base_url('public/uploads').'/'.$cur_good['goods_img']; ?>" border="0"></a>
+                            <br><input type="text" size="40" value="Photo's External URL" style="color:#aaa;" onfocus="if (this.value == '商品图片外部URL'){this.value='http://';this.style.color='#000';}" name="goods_img_url">
+            </td>
+          </tr>
+          <tr id="auto_thumb_1">
+            <td class="label"> Upload Product's Thumbnil：</td>
+            <td id="auto_thumb_3">
+              <input type="file" name="goods_thumb" size="35" disabled="">
+                              <a href="goods.php?act=show_image&amp;img_url=images/200905/thumb_img/32_thumb_G_1242110760196.jpg" target="_blank"><img style="width:30px;height: 30px" src="<?php echo base_url('public/uploads').'/'.$cur_good['goods_thumb']; ?>" border="0"></a>
+                            <br><input type="text" size="40" value="Thumbnil's External URL" style="color:#aaa;" onfocus="if (this.value == 'Thumbnil's External URL'){this.value='http://';this.style.color='#000';}" name="goods_thumb_url" disabled="">
+                            <br><!-- <label for="auto_thumb"><input type="checkbox" id="auto_thumb" name="auto_thumb" checked="true" value="1" onclick="handleAutoThumb(this.checked)">Generate Product's Thumbnil</label> -->            </td>
+          </tr>
+        </tbody></table>
+
+        <!-- Brief description -->
+        <table width="90%" id="detail-table" style="display: none;">
+          <tbody><tr>
+            <td><input type="hidden" id="goods_desc" name="goods_desc" value="" style="display:none"><input type="hidden" id="goods_desc___Config" value="" style="display:none"><iframe id="goods_desc___Frame" src="<?php echo base_url('application/third_party/fckeditor/editor/fckeditor.html').'?InstanceName=goods_desc';?>" width="100%" height="320" frameborder="0" scrolling="no" style="margin: 0px; padding: 0px; border: 0px; background-color: transparent; background-image: none; width: 100%; height: 320px;"></iframe></td>
+          </tr>
+        </tbody></table>
+
+        <!-- other information -->
+        <table width="90%" id="mix-table" style="display: none;" align="center">
+                    <tbody><!-- <tr>
+                                <td class="label">Produbt's Weight：</td>
+                                <td><input type="text" name="goods_weight" value="" size="20"> <select name="weight_unit"><option value="1">Kilogram</option><option value="0.001" selected="">Gram</option></select></td>
+                              </tr>
+                              -->
+                              <tr>
+                                <td class="label"><a href="javascript:showNotice('noticeStorage');" title="Click Here for Prodcut Infomation"><img src="images/notice.gif" width="16" height="16" border="0" alt="Click Here for Prodcut Infomation"></a> Number in Stock:</td>
+                    <!-- <td><input type="text" name="goods_number" value="4" size="20" readonly="readonly" /><br /> -->
+                                <td><input type="text" name="goods_number" value="<?php echo $cur_good['goods_number'] ?>" size="20"><br>
+                                <!-- 
+                                <span class="notice-span" style="display:block" id="noticeStorage">This Number Depends on How Many Product Left in Stock.</span></td> -->
+                              </tr>
+                              <!--
+                              <tr>
+                                <td class="label">Warning Number：</td>
+                                <td><input type="text" name="warn_number" value="1" size="20"></td>
+                              </tr> -->
+                    <tr>
+            <td class="label">Add to Recommand:</td>
+            <td><input type="checkbox" name="is_best" value="1" checked="checked">Boutique <input type="checkbox" name="is_new" value="1" checked="checked">Latest <input type="checkbox" name="is_hot" value="1" checked="checked">Hot</td>
+          </tr>
+          <tr id="alone_sale_1">
+            <td class="label" id="alone_sale_2">Putaway: </td>
+            <td id="alone_sale_3">No<input type="checkbox" name="is_onsale[]" value="1" <?php echo 1==$cur_good['is_onsale']? 'checked':'' ;?>> 
+            Yes<input type="checkbox" name="is_onsale[]" value="0" <?php echo 0==$cur_good['is_onsale']? 'checked':'' ;?>>
+            Check the Box Represent Allow Sale, Otherwise Forbidden. </td>
+          </tr>
+          <!-- <tr>
+            <td class="label">Sell as Normal Product：</td>
+            <td><input type="checkbox" name="is_alone_sale" value="1" checked="checked"> Check the Box Represent Normal Product, Otherwise Gift.</td>
+          </tr>
+          <tr>
+            <td class="label">Shipping Fee: </td>
+            <td><input type="checkbox" name="is_shipping" value="1"> Check the Box Represent Free Shipping, Otherwise will Cost Shipping Fee. </td>
+          </tr>
+          <tr>
+            <td class="label">Product Key Words：</td>
+            <td><input type="text" name="keywords" value="Oct 2016 GSM,,850,900,1800,1900 Black" size="40"> Separate by Space(' ')</td>
+          </tr>
+          <tr>
+            <td class="label">Product Description：</td>
+            <td><textarea name="goods_brief" cols="40" rows="3"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">
+            <a href="javascript:showNotice('noticeSellerNote');" title="Click Here to Check Prompt Information"><img src="images/notice.gif" width="16" height="16" border="0" alt="Click Here to Check Prompt Information"></a> Seller Comment： </td>
+            <td><textarea name="seller_note" cols="40" rows="3"></textarea><br>
+            <span class="notice-span" style="display:block" id="noticeSellerNote">Only seen by seller.</span></td>
+          </tr> -->
+        </tbody></table>
+
+        <!-- Product Attributes -->
+         <table width="90%" id="properties-table" style="display: none;" align="center">
+			<tbody>
+				<tr>
+					<td class="label">Product Category：</td>
+					<td>
+						<select name="type_id" onchange="switchValue(this.value)">
+							<option value="0">Please Choose Prodcut's Category</option>
+						<?php foreach( $goodtypes as $goodtype) :?>
+							<option value="<?php echo $goodtype['type_id'];?>"><?php echo $goodtype['type_name'];?></option>
+						<?php endforeach ;?>
+						</select><br>
+						<span class="notice-span" style="display:block" id="noticeGoodsType">Please Choose Prodcut's Category to Improve Product's Attributes.</span>
+					</td>
+				</tr>
+        <tr>
+          <td id="tbody-goodsAttr" colspan="2" style="padding:0">
+            <table id ="attr_table"></table>
+          </td>
+        </tr>
+
+
+
+							</tbody>
+						</table>
+					</td>
+			 </tr>
+        </tbody>
+	</table>
+
+        <!-- Product Gellary -->
+        <!-- <table width="90%" id="gallery-table" style="display: none;" align="center">
+          <tbody><tr>
+            <td>
+                <div id="gallery_41" style="float:left; text-align:center; border: 1px solid #DADADA; margin: 4px; padding:2px;">
+                <a href="javascript:;" onclick="if (confirm('Do You Want to Delete This Photo？')) dropImg('41')">[-]</a><br>
+                <a href="goods.php?act=show_image&amp;img_url=images/200905/goods_img/32_P_1242110760641.jpg" target="_blank">
+                <img src="../images/200905/thumb_img/32_thumb_P_1242110760997.jpg" width="100" height="100" border="0">
+                </a><br>
+                <input type="text" value="" size="15" name="old_img_desc[41]">
+              </div>
+                          </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td>
+              <a href="javascript:;" onclick="addImg(this)">[+]</a>
+              Photo Description <input type="text" name="img_desc[]" size="20">
+              Upload File <input type="file" name="img_url[]">
+              <input type="text" size="40" value="Entering Photo's External URL" style="color:#aaa;" onfocus="if (this.value == 'Entering Photo's External URL'){this.value='http://';this.style.color='#000';}" name="img_file[]">
+            </td>
+          </tr>
+        </tbody></table> -->
+
+        <div class="button-div">
+          <input type="hidden" name="goods_id" value="<?php echo $cur_good['goods_id'];  ?>">
+                    <input type="submit" value=" Submit " class="button" onclick="validate('32')">
+          <input type="reset" value=" Reset " class="button">
+        </div>
+        <input type="hidden" name="act" value="update">
+      </form>
+    </div>
+</div>
+
+
+<div id="footer">
+	Copyright &copy; WPL @ Fall 2016
+</div>
+<script type="text/javascript" src="<?php echo base_url('application/views/js/tab.js');?>"></script>
+<script type="text/javascript">
+	function addImg(obj){
+      var src  = obj.parentNode.parentNode;
+      var idx  = rowindex(src);
+      var tbl  = document.getElementById('gallery-table');
+      var row  = tbl.insertRow(idx + 1);
+      var cell = row.insertCell(-1);
+      cell.innerHTML = src.cells[0].innerHTML.replace(/(.*)(addImg)(.*)(\[)(\+)/i, "$1removeImg$3$4-");
+  	}
+
+    function removeImg(obj){
+      var row = rowindex(obj.parentNode.parentNode);
+      var tbl = document.getElementById('gallery-table');
+      tbl.deleteRow(row);
+  	}
+
+   	function dropImg(imgId){
+    	Ajax.call('goods.php?is_ajax=1&act=drop_image', "img_id="+imgId, dropImgResponse, "GET", "JSON");
+  	}
+
+  	function dropImgResponse(result){
+      if (result.error == 0){
+          document.getElementById('gallery_' + result.content).style.display = 'none';
+      }
+  	}
+    function switchValue(index){
+      var xmlhttp;
+      if(window.XMLHttpRequest){
+        xmlhttp = new XMLHttpRequest();
+      }else{
+        xmlhttp = new ActiveXObject("Microsoft.XMLHttp");
+      }
+
+      var attr_table = document.getElementById('attr_table');
+      xmlhttp.onreadystatechange = function(){
+
+        if(xmlhttp.readyState==4&&xmlhttp.status==200){
+
+          attr_table.innerHTML = xmlhttp.responseText;
+        }
+      }
+      var url = '<?php echo site_url('admin/goods/find_GoodAttribute');?>';
+      url+='?type_id='+index;
+
+      xmlhttp.open("GET",url,true);
+
+      xmlhttp.send();
+
+    }
+</script>
+</body>
+</html>

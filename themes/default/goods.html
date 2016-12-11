@@ -1,0 +1,390 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>Product Detail</title>
+	<link rel="stylesheet" href="<?php echo base_url('themes/default/css/base.css');?>" type="text/css" />
+	<link rel="stylesheet" href="<?php echo base_url('themes/default/css/shop_common.css');?>" type="text/css" />
+	<link rel="stylesheet" href="<?php echo base_url('themes/default/css/shop_header.css');?>" type="text/css" />
+	<link rel="stylesheet" href="<?php echo base_url('themes/default/css/shop_list.css');?>" type="text/css" />
+    <link rel="stylesheet" href="<?php echo base_url('themes/default/css/shop_goods.css');?>" type="text/css" />
+    <script type="text/javascript" src="<?php echo base_url('themes/default/js/jquery.js');?>" ></script>
+    <script type="text/javascript" src="<?php echo base_url('themes/default/js/topNav.js');?>" ></script>
+    <script type="text/javascript" src="<?php echo base_url('themes/default/js/shop_goods.js');?>" ></script>
+
+</head>
+<body>
+	<!-- Header  -wll-2013/03/24 -->
+	<div class="shop_hd">
+		<!-- Header TopNav -->
+		<div class="shop_hd_topNav">
+			<div class="shop_hd_topNav_all">
+				<!-- Header TopNav Left -->
+				<div class="shop_hd_topNav_all_left">
+					<?php $user = $this->session->userdata('user');
+					?>
+					<?php if(empty($user)) :?>
+					<p>Hi, Welcome to <b><a href="/">M_mobile</a></b>[<a href="<?php echo site_url('user/login') ;?>">Login</a>][<a href="<?php echo site_url('user/register') ;?>">Register</a>]</p>
+					<?php else:?>
+					<p>Hi, <?php echo $user['user_name'] ?> Welcome to <b><a href="/">M-Mobile</a></b>
+					<?php endif ;?>
+				</div>
+				<!-- Header TopNav Left End -->
+
+				<!-- Header TopNav Right -->
+				<div class="shop_hd_topNav_all_right">
+					<ul class="topNav_quick_menu">
+
+						<li>
+							<div class="topNav_menu">
+								<a href="#" class="topNavHover">My Shop<i></i></a>
+								<div class="topNav_menu_bd" style="display:none;" >
+						            <ul>
+						              <li><a title="Order History" target="_top" href="<?php echo site_url('user/order'); ?>">Order History</a></li>
+						              <li><a title="My Homepage" target="_top" href="<?php echo site_url('home/index'); ?>">Homepage</a></li>
+						             <!--  <li><a title="My Frieds" target="_top" href="#">Friends</a></li> -->
+						            </ul>
+						        </div>
+							</div>
+						</li>
+                                                <li>
+							<div class="topNav_menu">
+								<div class="topNav_menu_bd" style="display:none;">
+						            <ul>
+						              <li><a title="Sold Out" target="_top" href="#">Sold Out</a></li>
+						              <li><a title="On Sale" target="_top" href="#">On Sale</a></li>
+						            </ul>
+						        </div>
+							</div>
+						</li>
+
+						<li>
+							<div class="topNav_menu">
+								<a href="<?php echo site_url('cart/index') ;?>" class="topNavHover">Shopping Cart has <b><?php echo $this->cart->total_items(); ?></b>items<i></i></a>
+								<div class="topNav_menu_bd" style="display:none;">
+									<!--
+						            <ul>
+						              <li><a title="Sold Out" target="_top" href="#">Sold Out</a></li>
+						              <li><a title="On Sale" target="_top" href="#">On Sale</a></li>
+						            </ul>
+						        	-->
+						            <p>No Product in Cart, Look Around to Continue Shopping in Our WebSite:)!</p>
+						        </div>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+				<!-- Header TopNav Right End -->
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		<!-- Header TopNav End -->
+
+		<!-- TopHeader Center -->
+		<div class="shop_hd_header">
+			<div class="shop_hd_header_logo"><h1 class="logo"><a href="<?php echo base_url('/');?>"><img src="<?php echo base_url('public/uploads/logo.png');?>" alt="M-Mobile" /></a><span>M-Mobile</span></h1></div>
+			<div class="shop_hd_header_search">
+                            <ul class="shop_hd_header_search_tab">
+			        <li id="search" class="current">Product</li>
+			        <!-- <li id="shop_search">Shop</li> -->
+			    </ul>
+                            <div class="clear"></div>
+			    <div class="search_form">
+			    	<form method="post" action="index.php">
+			    		<div class="search_formstyle">
+			    			<input type="text" class="search_form_text" name="search_content" value="Search is Easy!" />
+			    			<input type="submit" class="search_form_sub" name="secrch_submit" value="" title="Search" />
+			    		</div>
+			    	</form>
+			    </div>
+                            <div class="clear"></div>
+			    <div class="search_tag">
+						<a href="">Apple</a>
+			    	<a href="">Leneno</a>
+			    	<a href="">Nokia</a>
+			    	<a href="">Sumsung</a>
+			    	<a href="">BlackBerry</a>
+			    </div>
+
+			</div>
+		</div>
+		<div class="clear"></div>
+		<!-- TopHeader Center End -->
+
+		<!-- Header Menu -->
+		<div class="shop_hd_menu">
+			<!-- All Product Menu -->
+
+			<div id="shop_hd_menu_all_category" class="shop_hd_menu_all_category"><!-- 首页去掉 id="shop_hd_menu_all_category" 加上clsss shop_hd_menu_hover -->
+				<div class="shop_hd_menu_all_category_title"><h2 title="所有商品分类"><a href="javascript:void(0);">All Product Category</a></h2><i></i></div>
+				<div id="shop_hd_menu_all_category_hd" class="shop_hd_menu_all_category_hd">
+					<ul class="shop_hd_menu_all_category_hd_menu clearfix">
+						<!-- Single Menu -->
+
+
+                                                <li class="more"><a href="">Check More Category</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- All Product Menu END -->
+
+			<!-- Navigation Menu -->
+			<ul class="shop_hd_menu_nav">
+			</ul>
+			<!-- Navigation Menu End -->
+		</div>
+		<!-- Header Menu End -->
+
+	</div>
+	<div class="clear"></div>
+
+	<div class="shop_hd_breadcrumb">
+		<strong>Current Location:</strong>
+		<!-- <span>
+			<a href="">Homepage</a>&nbsp;›&nbsp;
+			<a href="">Product Category</a>&nbsp;›&nbsp;
+			<a href="">Clothing(Women's & Men's)</a>&nbsp;›&nbsp;
+			<a href="">Men's Clothing</a>
+		</span> -->
+	</div>
+	<div class="clear"></div>
+
+	<!-- Header End -->
+
+	<!-- Goods Body -->
+	<div class="shop_goods_bd clear">
+
+		<!-- Display Product -->
+		<div class="shop_goods_show">
+			<div class="shop_goods_show_left">
+				<!-- JD Product Display -->
+				<link rel="stylesheet" href="<?php echo base_url('themes/default/css/shop_goodPic.css');?>" type="text/css" />
+				<script type="text/javascript" src="<?php echo base_url('themes/default/js/shop_goodPic_base.js');?>"></script>
+				<script type="text/javascript" src="<?php echo base_url('themes/default/js/lib.js');?>"></script>
+				<script type="text/javascript" src="<?php echo base_url('themes/default/js/163css.js');?>"></script>
+				<div id="preview">
+					<div class=jqzoom id="spec-n1" onClick="window.open('/')"><IMG height="350" src="<?php echo base_url('public/uploads').'/'.$goods['goods_img'];?>" jqimg="<?php echo base_url('public/uploads').'/'.$goods['goods_img'];?>" width="350">
+						</div>
+						<div id="spec-n5">
+							<div class=control id="spec-left">
+								<img src="<?php echo base_url('themes/default/images/left.gif');?>" />
+							</div>
+							<div id="spec-list">
+								<ul class="list-h">
+
+									<li><img src="<?php echo base_url('public/uploads').'/'.$goods['goods_thumb'];?>"> </li>
+								</ul>
+							</div>
+							<div class=control id="spec-right">
+								<img src="<?php echo base_url('themes/default/images/right.gif');?>" />
+							</div>
+
+					    </div>
+					</div>
+
+					<SCRIPT type=text/javascript>
+						$(function(){
+						   $(".jqzoom").jqueryzoom({
+								xzoom:400,
+								yzoom:400,
+								offset:10,
+								position:"right",
+								preload:1,
+								lens:1
+							});
+							$("#spec-list").jdMarquee({
+								deriction:"left",
+								width:350,
+								height:56,
+								step:2,
+								speed:4,
+								delay:10,
+								control:true,
+								_front:"#spec-right",
+								_back:"#spec-left"
+							});
+							$("#spec-list img").bind("mouseover",function(){
+								var src=$(this).attr("src");
+								$("#spec-n1 img").eq(0).attr({
+									src:src.replace("\/n5\/","\/n1\/"),
+									jqimg:src.replace("\/n5\/","\/n0\/")
+								});
+								$(this).css({
+									"border":"2px solid #ff6600",
+									"padding":"1px"
+								});
+							}).bind("mouseout",function(){
+								$(this).css({
+									"border":"1px solid #ccc",
+									"padding":"2px"
+								});
+							});
+						})
+						</SCRIPT>
+					<!-- JD Product Display End -->
+
+			</div>
+			<div class="shop_goods_show_right">
+			<form action="<?php echo site_url('cart/add'); ?>" method="post">
+				<input type="hidden" name="goods_name" value="<?php echo $goods['goods_name'] ;?>">
+				<input type="hidden" name="goods_id" value="<?php echo $goods['goods_id'] ;?>">
+				<input type="hidden" name="shop_price" value="<?php echo $goods['shop_price'] ;?>">
+				<input type="hidden" name="goods_thumb" value="<?php echo $goods['goods_thumb'] ;?>">
+				<ul>
+					<li>
+						<strong style="font-size:14px; font-weight:bold;"><?php echo $goods['goods_name'] ;?></strong>
+					</li>
+					<li>
+						<label>Price：</label>
+						<span><strong><?php echo $goods['shop_price'] ;?></strong>Dollars</span>
+					</li>
+					<li>
+						<label>Price：</label>
+						<span>Seller Undertake th Shipping Fee.</span>
+					</li>
+					<li>
+						<label>Total Amount：</label>
+						<span><?php echo $goods['click_count'] ;?>unit</span>
+					</li>
+					<li>
+						<label>Comment：</label>
+						<span>0 Comment</span>
+					</li>
+					<li class="goods_num">
+						<label>Amount：</label>
+						<span><a class="good_num_jian" id="good_num_jian" href="javascript:void(0);"></a><input name="good_nums" type="text" value="1" id="good_nums" class="good_nums" /><a href="javascript:void(0);" id="good_num_jia" class="good_num_jia"></a>(In Stock: <?php echo $goods['goods_number'] ?>)</span>
+					</li>
+					<li style="padding:20px 0;">
+						<label>&nbsp;</label>
+						<span>
+							<input type="image" src="<?php echo base_url('public/uploads/addcart.jpg');?>">
+						</span>
+					</li>
+				</ul>
+			</div>
+			</form>
+		</div>
+		<!-- Prodcut Display End -->
+
+		<div class="clear mt15"></div>
+		<!-- Goods Left -->
+		<div class="shop_bd_list_left clearfix">
+			<!-- Left: Product Category -->
+			<div class="shop_bd_list_bk clearfix">
+				<div class="title">Product Catrgory</div>
+				<div class="contents clearfix">
+					<!-- <dl class="shop_bd_list_type_links clearfix">
+						<dt><strong>Women's</strong></dt>
+						<dd>
+							<span><a href="">Coat</a></span>
+							<span><a href="">Dress(Long Sleeve)</a></span>
+							<span><a href="">Dress(Woolen)</a></span>
+							<span><a href="">Skirt</a></span>
+							<span><a href="">Pencil Pants</a></span>
+							<span><a href="">Leggings</a></span>
+							<span><a href="">Jeans</a></span>
+							<span><a href="">Under Shirt</a></span>
+							<span><a href="">Couple Mounted</a></span>
+							<span><a href="">Sweater</a></span>
+							<span><a href="">Coat(Woolen)</a></span>
+							<span><a href="">Short(Woolen)</a></span>
+						</dd>
+					</dl> -->
+				</div>
+			</div>
+			<!-- Left: Product Category End -->
+
+			<!-- Product Recommandation -->
+			<!-- <div class="shop_bd_list_bk clearfix">
+				<div class="title">Product Recommandation</div>
+				<div class="contents clearfix">
+					<ul class="clearfix">
+
+						<li class="clearfix">
+							<div class="goods_name"><a href="">Gap Classic T-shirt, Single Color|000891347|Orginal Price: $149</a></div>
+							<div class="goods_pic"><span class="goods_price">$ 279.00 </span><a href=""><img src="<?php echo base_url('themes/default/images/89a6d6466b00ae32d3c826b9ec639084.jpg_small.jpg');?>" /></a></div>
+							<div class="goods_xiaoliang">
+								<span class="goods_xiaoliang_link"><a href="">Have a Look!</a></span>
+								<span class="goods_xiaoliang_nums">Have Sold: <strong>99</strong></span>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</div> -->
+			<!-- Product Recommandation -->
+			<div class="clear"></div>
+
+			<!-- View History -->
+			<!-- <div class="shop_bd_list_bk clearfix">
+				<div class="title">View History</div>
+				<div class="contents clearfix">
+					<ul class="clearfix">
+
+						<li class="clearfix">
+							<div class="goods_name"><a href="">Gap Classic T-shirt, Single Color|000891347|Orginal Price: $149</a></div>
+							<div class="goods_pic"><span class="goods_price">$ 279.00 </span><a href=""><img src="<?php echo base_url('themes/default/images/89a6d6466b00ae32d3c826b9ec639084.jpg_small.jpg');?>" /></a></div>
+							<div class="goods_xiaoliang">
+								<span class="goods_xiaoliang_link"><a href="">Have a Look!</a></span>
+								<span class="goods_xiaoliang_nums">Have Sole: <strong>99</strong></span>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</div> -->
+			<!-- View History -->
+
+		</div>
+		<!-- Goods Left End -->
+
+		<!-- Product Detail -->
+		<script type="text/javascript" src="<?php echo base_url('themes/default/js/shop_goods_tab.js');?>"></script>
+		<div class="shop_goods_bd_xiangqing clearfix">
+			<div class="shop_goods_bd_xiangqing_tab">
+				<ul>
+					<li id="xiangqing_tab_1" onmouseover="shop_goods_easytabs('1', '1');" onfocus="shop_goods_easytabs('1', '1');" onclick="return false;"><a href=""><span>Product Detail</span></a></li>
+					<li id="xiangqing_tab_2" onmouseover="shop_goods_easytabs('1', '2');" onfocus="shop_goods_easytabs('1', '2');" onclick="return false;"><a href=""><span>Comment</span></a></li>
+					<li id="xiangqing_tab_3" onmouseover="shop_goods_easytabs('1', '3');" onfocus="shop_goods_easytabs('1', '3');" onclick="return false;"><a href=""><span> Consult</span></a></li>
+				</ul>
+			</div>
+			<div class="shop_goods_bd_xiangqing_content clearfix">
+				<div id="xiangqing_content_1" class="xiangqing_contents clearfix">
+					<p>Product Detail----11111</p>
+				</div>
+				<div id="xiangqing_content_2" class="xiangqing_contents clearfix">
+					<p>Comment----22222</p>
+				</div>
+
+				<div id="xiangqing_content_3" class="xiangqing_contents clearfix">
+					<p>Consult the Product---3333</p>
+				</div>
+			</div>
+		</div>
+		<!-- Product Detail End -->
+
+	</div>
+	<!-- Goods Body End -->
+
+	<!-- Footer - wll - 2013/3/24 -->
+	<div class="clear"></div>
+	<div class="shop_footer">
+            <div class="shop_footer_link">
+                <p>
+                    <a href="<?php echo base_url('/');?>">Homepage</a>|
+                    <a href="">Career</a>|
+                    <a href="">AD Cooperate</a>|
+                    <a href="">About M-Mobile</a>|
+                    <a href="">About Us</a>
+                </p>
+            </div>
+            <div class="shop_footer_copy">
+                <p>Copyright &copy; WPL @ Fall 2016.</p>
+            </div>
+        </div>
+	<!-- Footer End -->
+
+</body>
+</html>

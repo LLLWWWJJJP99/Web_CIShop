@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>My Account</title>
+	<link rel="stylesheet" href="<?php echo base_url('themes/default/css/base.css');?>" type="text/css" />
+	<link rel="stylesheet" href="<?php echo base_url('themes/default/css/shop_common.css');?>" type="text/css" />
+	<link rel="stylesheet" href="<?php echo base_url('themes/default/css/shop_header.css');?>" type="text/css" />
+    <link rel="stylesheet" href="<?php echo base_url('themes/default/css/shop_home.css');?>" type="text/css" />
+    <script type="text/javascript" src="<?php echo base_url('themes/default/js/jquery.js');?>" ></script>
+    <script type="text/javascript" src="<?php echo base_url('themes/default/js/topNav.js');?>" ></script>
+	<script type="text/javascript" src="<?php echo base_url('themes/default/js/shop_gouwuche.js');?>" ></script>
+
+	<!--css for user does not login-->
+	<style>
+		.No_Login{height:120px; padding-left:411px; background:#f3f3f3 no-repeat 321px 20px; line-height:98px; border:1px solid #ddd;border-radius:4px;}
+		.message{font-family: cursive; font-size: 10pt;}
+	</style>
+
+
+
+
+
+</head>
+<body>
+		<!-- Header  -wll-2013/03/24 -->
+	<div class="shop_hd">
+		<!-- Header TopNav -->
+		<div class="shop_hd_topNav">
+			<div class="shop_hd_topNav_all">
+				<!-- Header TopNav Left -->
+				<div class="shop_hd_topNav_all_left">
+					<p>Hi, Welcome to<b><a href="<?php echo base_url('/');?>">M-Mobile!</p>
+				</div>
+				<!-- Header TopNav Left End -->
+
+				<!-- Header TopNav Right -->
+				<div class="shop_hd_topNav_all_right">
+					<ul class="topNav_quick_menu">
+
+						<li>
+							<div class="topNav_menu">
+								<a href="#" class="topNavHover">My Shop<i></i></a>
+								<div class="topNav_menu_bd" style="display:none;" >
+						            <ul>
+						              <li><a title="Order History" target="_top" href="#"> History</a></li>
+						              <li><a title="Homepage" target="_top" href="<?php echo base_url('/');?>">Homepage</a></li>
+						             
+						            </ul>
+						        </div>
+							</div>
+						</li>
+
+						<li>
+							<div class="topNav_menu">
+								<a href="<?php echo site_url('cart/index') ;?>" class="topNavHover">Shopping Cart has <b><?php echo $this->cart->total_items(); ?></b> item<i></i></a>
+								<div class="topNav_menu_bd" style="display:none;">
+									<!--
+						            <ul>
+						              <li><a title="Sold OUt" target="_top" href="#">Sold Out</a></li>
+						              <li><a title="On Sale" target="_top" href="#">On Sale</a></li>
+						            </ul>
+						        	-->
+						            <p>No Product in Cart, Look Around to Continue Shopping in Our WebSite:)!</p>
+						        </div>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+				<!-- Header TopNav Right End -->
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		<!-- Header TopNav End -->
+
+		<!-- TopHeader Center -->
+		<div class="shop_hd_header">
+			<div class="shop_hd_header_logo"><a href="<?php echo base_url('/');?>"><img src="<?php echo base_url('public/uploads/logo.png') ;?>" alt="M-Mobile" /></a><span>M-Mobile</span></h1></div>
+			<div class="shop_hd_header_search">
+                            <ul class="shop_hd_header_search_tab">
+			        <li id="search" class="current">Product</li>
+			        <!-- <li id="shop_search">Shop</li> -->
+			    </ul>
+                            <div class="clear"></div>
+			    <div class="search_form">
+			    	<form method="post" action="index.php">
+			    		<div class="search_formstyle">
+			    			<input type="text" class="search_form_text" name="search_content" value="Search is Easy！" />
+			    			<input type="submit" class="search_form_sub" name="secrch_submit" value="" title="Search" />
+			    		</div>
+			    	</form>
+			    </div>
+                            <div class="clear"></div>
+			    <div class="search_tag">
+						<a href="">IPhone</a>
+			    	<a href="">Nokia</a>
+			    	<a href="">Sumsung</a>
+			    	<a href="">BlackBerry</a>
+			    	<a href="">Lenovo</a>
+			    </div>
+
+			</div>
+		</div>
+		<div class="clear"></div>
+		<!-- TopHeader Center End -->
+
+		<!-- Header Menu -->
+		<div class="shop_hd_menu">
+		</div>
+		<!-- Header Menu End -->
+	</div>
+	<div class="clear"></div>
+
+
+	<div class="shop_hd_breadcrumb">
+		<strong>Current Location:</strong>
+		<span>
+			<a href="">My Shop</a>&nbsp;›&nbsp;
+			<a href="<?php echo site_url('home/index'); ?>">Homepage</a>&nbsp;›&nbsp;
+			
+			<a href="<?php echo site_url('user/order'); ?>">Order History</a>
+		</span>
+	</div>
+	<div class="clear"></div>
+	<!-- Header End -->
+
+
+	<!-- My Account -->
+
+<div class="shop_bd clearfix">
+	<!-- Second Block -->
+<div class="shop_bd_top clearfix">
+	<div class="shop_gwc_bd clearfix">
+	<?php if ($userid == ""): ?>
+		<div class="No_Login">
+			<div class="message">
+				<p>You Have not Login, Please Goto <a href="login">Login</a> First. Or Continue Viewing the <a href="/cishop/index.php"> Website</a>!</p>
+			</div>
+		</div>
+	<?php else:?>
+		<div class="shop_gwc_bd_contents clearfix">
+				<table bgcolor = "#f3f3f3">
+					<thead>
+						<tr>
+						<th style="width:200px;" class="gwc_list_title"><span>User Name </span></th>
+						<th style="width:200px;" class="gwc_list_title"><span>Good Name</span></th>
+						<th style="width:200px;" class="gwc_list_title"><span>Quantity</span></th>
+						<th style="width:200px;" class="gwc_list_title"><span>Single Price</span></th>
+						<th style="width:200px;" class="gwc_list_title"><span>Option</span></th>
+					</tr>
+					</thead>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+				<?php foreach($history as $his) {?>
+								<tr>
+									<td class="gwc_list_title" ><?php echo $his['user_name'];	?></td>
+									<td class="gwc_list_title"><?php echo $his['goods_name'];	?></td>
+									<td class="gwc_list_shuliang"><?php echo $his['quantity'];	?></td>
+									<td class="gwc_list_danjia"><?php echo $his['shop_price'];	?></td>
+									<td class ="gwc_list_caozuo"><a href = "<?php echo site_url('user/delete_order').'/'.$his['order_id'] ;?>" >Delete</a></td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+				<?php } ?>
+						</table>
+	</div>
+<?php endif; ?>
+</div>
+</div>
+</div>
+	<!--  Order history  -->
+
+
+
+
+
+
+	<!-- Footer - wll - 2013/3/24 -->
+	<div class="clear"></div>
+	<div class="shop_footer">
+            <div class="shop_footer_link">
+                <p>
+                    <a href="<?php echo base_url('/');?>">Homepage</a>|
+                    <a href="">Career</a>|
+                    <a href="">AD Cooperation</a>|
+                    <a href="">About M-Mobile</a>|
+                    <a href="">About Us</a>
+                </p>
+            </div>
+        </div>
+	<!-- Footer End -->
+</body>
+</html>

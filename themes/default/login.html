@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>User Login</title>
+
+	<link href="<?php echo base_url('themes/default/css/global.css'); ?>" rel="stylesheet" type="text/css" />
+	<link href="<?php echo base_url('themes/default/css/base.css'); ?>" rel="stylesheet" type="text/css" />
+	<link href="<?php echo base_url('themes/default/css/login-register.css'); ?>" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+	<div class="header wrap1000">
+		<a href="<?php echo base_url('/');?>"><img src="<?php echo base_url('public/uploads/logo.png');?>" alt="" /></a>
+	</div>
+
+	<div class="main">
+		<div class="login-form fr">
+			<div class="form-hd">
+				<h3>User Login</h3>
+			</div>
+			<div class="form-bd">
+				<form action="<?php echo site_url('user/signin');?>" method="POST">
+					<dl>
+						<dt>User Name</dt>
+						<dd><input type="text" name="username" class="text" /></dd>
+					</dl>
+					<dl>
+						<dt>Password</dt>
+						<dd><input type="password" name="password" class="text"/></dd>
+					</dl>
+					<dl>
+						<dt>CAPTCHA Code</dt>
+						<dd><input type="text" name="captcha" class="text" size="10" style="width:58px;"> <img src="<?php echo site_url('user/code');?>" onclick= this.src="<?php echo site_url('user/code').'/'?>"+Math.random() alt="" align="absmiddle" style="position:relative;top:-2px;"/><!--  <a href="" style="color:#999;">看不清，换一张</a> --></dd>
+					</dl>
+					<dl>
+						<dt>&nbsp;</dt>
+						<dd><input type="submit" value="Login" class="submit"/> <a href="" class="forget">Forget Password?</a></dd>
+					</dl>
+				</form>
+				<dl>
+					<dt>&nbsp;</dt>
+					<dd> Not our Membership? <a href="<?php echo site_url('user/register') ;?>">Register Now!</a></dd>
+				</dl>
+			</div>
+			<div class="form-ft">
+
+			</div>
+		</div>
+
+		<div class="login-form-left fl">
+			<img src="<?php echo base_url('themes/default/images/left.jpg');?>" alt="" />
+		</div>
+	</div>
+
+	<div class="footer clear wrap1000">
+		<p> <a href="">Homepage</a> | <a href="">Career</a> | <a href="">AD Cooperate</a> | <a href="">About ShopCZ</a> | <a href="">Contact Us</a></p>
+		<p>Copyright &copy; WPL @ Fall 2016.</p>
+	</div>
+
+
+</body>
+</html>

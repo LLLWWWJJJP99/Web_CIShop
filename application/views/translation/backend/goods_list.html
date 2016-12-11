@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title></title>
+<link href="<?php echo base_url('application/views/styles/general.css'); ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url('application/views/styles/main.css'); ?>" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<h1>
+	<span class="action-span"><a href="<?php echo site_url('admin/goods/add'); ?>">添加新商品</a></span>
+	<span class="action-span1"><a href="index.php?act=main">SHOP 管理中心</a> </span><span id="search_id" class="action-span1"> - 商品列表 </span>
+	<div style="clear:both"></div>
+</h1>
+
+<div class="form-div">
+  <form action="<?php echo site_url('admin/goods/search'); ?>" name="searchForm" method="post">
+    <img src="<?php echo base_url('application/views/images/icon_search.gif'); ?>" width="26" height="22" border="0" alt="SEARCH">
+        <!-- 分类 -->
+    <select name="cat_id">
+		<option value="0">所有分类</option>
+		<?php foreach( $cates as $cate ): ?>
+		<option value="<?php echo $cate['cat_id'] ?>"><?php echo $cate['cat_name'] ?></option>
+		<?php endforeach; ?>
+	</select>
+    <!-- 品牌 -->
+    <select name="brand_id">
+		<option value="0">所有品牌</option>
+		<?php foreach( $brands as $brand ): ?>
+		<option value="<?php echo $brand['brand_id'] ?>"><?php echo $brand['brand_name'] ?></option>
+		<?php endforeach; ?>
+	</select>
+
+	<!-- 关键字 -->
+		关键字 <input type="text" name="keyword" size="15">
+		<input type="submit" value=" 搜索 " class="button" >
+  </form>
+</div>
+
+<form method="post" action="" name="listForm" onsubmit="return confirmSubmit(this)">
+  <!-- start goods list -->
+	<div class="list-div" id="listDiv">
+		<table cellpadding="3" cellspacing="1">
+			<tbody>
+				<tr>
+					<th><input type="checkbox">编号</th>
+					<th>商品名称</th>
+					<th>货号</th>
+					<th>价格</th>
+					<th>上架</th>
+					<th>精品</th>
+					<th>新品</th>
+					<th>热销</th>
+					<!-- <th>推荐排序</th> -->
+					<th>库存</th>
+					<th>操作</th>
+				</tr>
+				<tr></tr>
+				<?php foreach($goods as $good): ?>
+				<tr>
+					<td><input type="checkbox" name="checkboxes[]" value="<?php echo $good['goods_id'] ;?>"><?php echo $good["goods_id"] ;?></td>
+					<td class="first-cell"><span><?php echo $good['goods_name'] ;?></span></td>
+					<td><span><?php echo $good['goods_sn'] ;?></span></td>
+					<td align="right"><span><?php echo $good['shop_price'] ;?></span></td>
+					<?php if($good['is_onsale']==1): ?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/yes.gif'); ?>" onclick=""></td>
+					<?php else:?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/no.gif'); ?>" onclick=""></td>
+					<?php endif;?>
+					
+					<?php if($good['is_best']==1): ?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/yes.gif'); ?>" onclick=""></td>
+					<?php else:?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/no.gif'); ?>" onclick=""></td>
+					<?php endif;?>
+
+					<?php if($good['is_new']==1): ?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/yes.gif'); ?>" onclick=""></td>
+					<?php else:?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/no.gif'); ?>" onclick=""></td>
+					<?php endif;?>
+
+					<?php if($good['is_hot']==1): ?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/yes.gif'); ?>" onclick=""></td>
+					<?php else:?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/no.gif'); ?>" onclick=""></td>
+					<?php endif;?>
+
+					<!-- <td align="center"><span onclick=""><?php echo $good['goods_number'] ;?></span></td> -->
+					<td align="right"><span onclick=""><?php echo $good['goods_number'] ;?></span></td>
+					<td align="center">
+
+						<a href="<?php echo site_url('admin/goods/edit').'/'.$good['goods_id']; ?>" title="编辑"><img src="<?php echo base_url('application/views/images/icon_edit.gif');?>" width="16" height="16" border="0"></a>
+						<a href="<?php echo site_url('admin/goods/delete').'/'.$good['goods_id'];?>" onclick="listTable.remove(32, '您确实要把该商品放入回收站吗？')" title="回收站"><img src="<?php echo base_url('application/views/images/icon_trash.gif');?>" width="16" height="16" border="0"></a>
+						<a href="goods.php?act=product_list&amp;goods_id=32" title="货品列表"><img src="<?php echo base_url('application/views/images/icon_docs.gif');?>" width="16" height="16" border="0"></a>          
+					</td>
+				</tr>
+			<?php endforeach ;?>
+  </tbody>
+ </table>
+<!-- end goods list -->
+
+	<!-- 分页 -->
+	<table id="page-table" cellspacing="0">
+		<tbody>
+			<tr>
+      		<td align="right" nowrap="true" colspan="6" style="background-color: rgb(255, 255, 255);">
+            <!-- $Id: page.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+            <div id="turn-page">
+            <?php echo $pageinfo;?>
+            </div>
+      		</td>
+   			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div>
+	<input type="hidden" name="act" value="batch">
+	<select name="type" id="selAction" onchange="changeAction()">
+		<option value="">请选择...</option>
+		<option value="trash">回收站</option>
+		<option value="on_sale">上架</option>
+		<option value="not_on_sale">下架</option>
+		<option value="best">精品</option>
+		<option value="not_best">取消精品</option>
+		<option value="new">新品</option>
+		<option value="not_new">取消新品</option>
+		<option value="hot">热销</option>
+		<option value="not_hot">取消热销</option>
+		<option value="move_to">转移到分类</option>
+		<option value="suppliers_move_to">转移到供货商</option>
+	</select>
+
+    <input type="hidden" name="extension_code" value="">
+    <input type="submit" value=" 确定 " id="btnSubmit" name="btnSubmit" class="button" disabled="true">
+</div>
+</form>
+
+<div id="footer">
+	版权所有 &copy; 2006-2013 传智播客 - PHP培训 - 
+</div>
+</body>
+</html>

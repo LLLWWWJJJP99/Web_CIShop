@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>用户注册</title>
+	<link href="<?php echo base_url('themes/default/css/global.css'); ?>" rel="stylesheet" type="text/css" />
+	<link href="<?php echo base_url('themes/default/css/base.css'); ?>" rel="stylesheet" type="text/css" />
+	<link href="<?php echo base_url('themes/default/css/login-register.css'); ?>" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="<?php echo base_url('public/jquery-1.9.1.min.js');?>" ></script>
+	<!-- <script type="text/javascript" src="<?php echo base_url('themes/default/js/register_validation.js');?>" ></script> -->
+	<style type="text/css">
+		#password_p, #email_p, #password_prom, #email_prom {position: relative; text-align: left; display: block;left: 75px;}
+		.error { color: #e81431; font-size: 14px; font-family: cursive;}
+		.info { color: #4286f4; font-family: cursive; font-size: 12pt;}
+		.ok { color: #0eb24f; font-family: cursive; font-size: 12pt;}
+		#a1, #a2,#a3,#a4,#a5{position: relative;;text-align :left;display: block;left: 75px;color: pink;font: italic bold 12px/30px Georgia, serif}
+	</style>
+	<script>
+		$(document).ready(function(){
+	
+			//prompt password information
+			$("#password").focus(function(){
+				$("#password_p").remove();
+	    		$("#password_prom").remove();
+	    		$("#password").after('<span id = "password_p"></br> The password field should be at least:</br> <ul> <li> - 8 characters <li> - an upper case letter <li> - a lower case letter <li> - a special character </ul></span>');
+	    		$("#password_p").attr("class","info");
+			});
+			//validate password's strength
+			$("#password").blur(function(){
+	      	$("#password_prom").remove();
+	      	$("#password_p").remove();
+	      	$("#password").after('&nbsp; <span id = "password_prom"></span>');
+	      	var password_text = $("#password").val();
+	      	if(password_text.length == 0)
+	      	{
+	        	$("#password_p").hide("slow");
+	        	return;
+	      	}
+	      	if( /^[A-Za-z0-9\d=!\-@._*]*$/.test(password_text) && /[a-z]/.test(password_text) && /\d/.test(password_text) && password_text.length >=8)
+	      	{
+	        	$("#password_prom").attr("class","ok");
+	        	$("#password_prom").append("</br>Password is strength!");
+	      	}
+	      	else
+				{
+	        	$("#password_prom").attr("class","error");
+	        	$("#password_prom").append("</br>Please Enter a Valid Password.");
+	      	}
+	    	});
+			//prompt email address info
+			$("#email").focus(function(){
+	    		$("#email_p").remove();
+	    		$("#email_prom").remove();
+	    		$("#email").after('<span id = "email_p"></br> The email address should be valid.</br> eg: xx@xx.xx</span>');
+	    		$("#email_p").attr("class","info");
+		  	});
+		
+			//validate email address
+			$("#email").blur(function(){
+				$("#email_prom").remove();
+				$("#email_p").remove();
+				$("#email").after('&nbsp; <span id = "email_prom"></span>');
+				var email_text = $("#email").val();
+				var valid = /^([\w\.\-]+)@([\w\-]+)((\.(\w)+)+)$/;
+				if(email_text == "")
+				{
+					$("#email_p").hide("slow");
+					return;
+				}
+				if( valid.test(email_text))
+				{
+					$("#email_prom").attr("class","ok");
+					$("#email_prom").append("</br>Congrats! You Could Use This Address.");
+				}
+				else {
+					$("#email_prom").attr("class","error");
+					$("#email_prom").append("</br>Please Enter a Valid Email Address.");
+				}
+			});
+			var _email = $("#email").val();
+			var _password = $("#password").val();
+			var _password2 = $("#password2").val();
+			var _captcha = $("#captcha").val();
+			var _username = $("#username").val();
+			
+			$("#email").blur(function (){
+				
+				if($("#email").val().length==0){
+					$("#ajax").after("<div id='a1'></div>");
+					$("#a1").text("please input a valid email not null");
+				}
+			});
+			$("#password").blur(function (){
+				if($("#password").val().length==0){
+					$("#ajax3").after("<div id='a2'></div>");
+					$("#a2").text("please input a valid password not null");
+				}
+			});
+			$("#password2").blur(function (){
+				
+				if($("#password2").val().length==0){
+					$("#ajax4").after("<div id='a3'></div>");
+					$("#a3").text("please input a valid password2 not null");
+				}
+			});
+			$("#captcha").blur(function (){
+				
+				if($("#captcha").val().length==0){
+					$("#ajax5").after("<div id='a4'></div>");
+					$("#a4").text("please input a valid captcha not null");
+				}
+			});
+			$("#username").blur(function (){
+				
+				if($("#username").val().length==0){
+					$("#ajax2").after("<div id='a5'></div>");
+					$("#a5").text("please input a valid username not null");
+				}
+			});
+			
+			$("#email").focus(function(){
+				
+				$("#a1").text("");
+			});
+			$("#password").focus(function(){
+				$("#a2").text("");
+			});
+			$("#password2").focus(function(){
+				$("#a3").text("");
+			});
+			$("#captcha").focus(function(){
+				$("#a4").text("");
+			});
+			$("#username").focus(function(){
+				
+				$("#a5").text("");
+			});
+	});
+	</script>
+</head>
+<body>
+	<div class="header wrap1000">
+		<a href=""><img src="<?php echo base_url('themes/default/images/logo.png');?>" alt="" /></a>
+	</div>
+	
+	<div class="main">
+		<div class="login-form fr">
+			<div class="form-hd">
+				<h3>用户注册</h3>
+			</div>
+			<div class="form-bd">
+				<form action="<?php echo site_url('user/insert');?>" method="post">
+					<dl>
+						<dt>用户名</dt>
+						<dd><input id="username" type="text" name="username" class="text" onblur="validate_Name()" /><div id="ajax2"></div></dd>
+					</dl>
+					<dl>
+						<dt>密码</dt>
+						<dd><input id="password" type="password" name="password" class="text"/><div id="ajax3"></dd>
+					</dl>
+					<dl>
+						<dt>确认密码</dt>
+						<dd><input id="password2" type="password" name="repwd" class="text"/><div id="ajax4"></dd>
+					</dl>
+					<dl>
+						<dt>邮箱</dt>
+						<dd><input id="email" type="text" name="email" class="text" onblur="validate_email()"/><div id="ajax"></div></dd>
+					</dl>
+					<dl>
+						<dt>验证码</dt>
+						<dd ><input type="text" id="captcha" name="captcha" class="text" size="10" style="width:58px;"> <img src="<?php echo site_url('user/code');?>" onclick= this.src="<?php echo site_url('user/code').'/'?>"+Math.random() alt="" align="absmiddle" style="position:relative;top:-2px;"/> <!-- <a href="" style="color:#999;">看不清，换一张</a> --><div id="ajax5"></dd>
+					</dl>
+					<dl>
+						<dt>&nbsp;</dt>
+						<!-- <button type="button"onclick='test()'></button> -->
+						<dd><input type="submit"  value="立即注册" class="submit"/> <input type= "checkbox" checked="checked"/>阅读并同意<a href="" class="forget">服务协议</a></dd>
+					</dl>
+				</form>
+				
+			</div>
+			<div class="form-ft">
+			
+			</div>		
+		</div>
+		
+		<div class="login-form-left fl">
+			<dl class="func clearfix">
+				<dt>注册之后您可以</dt>
+				<dd class="ico05"><i></i>购买商品支付订单</dd>
+				<dd class="ico01"><i></i>申请开店销售商品</dd>
+				<dd class="ico03"><i></i>空间好友推送分享</dd>
+				<dd class="ico02"><i></i>收藏商品关注店铺</dd>
+				<dd class="ico06"><i></i>商品资讯服务评价</dd>
+				<dd class="ico04"><i></i>安全交易诚信无忧</dd>
+			</dl>
+			
+			<div class="if">
+				<h2>如果您是本站用户</h2>
+				<p>我已经注册过账号，立即 <a href="" class="register">登录</a> 或是 <a href="" class="findpwd">找回密码？</a></p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="footer clear wrap1000">
+		<p> <a href="">首页</a> | <a href="">招聘英才</a> | <a href="">广告合作</a> | <a href="">关于ShopCZ</a> | <a href="">联系我们</a></p>
+		<p>Copyright 2004-2013 itcast Inc.,All rights reserved.</p>
+	</div>
+	
+		<script type="text/javascript">
+			
+			function validate_email(){
+				
+				var email = document.getElementById("email");
+				
+				var xmlhttp;
+				var a = document.getElementById("ajax");
+				if(window.XMLHttpRequest){
+					xmlhttp = new XMLHttpRequest();
+				}else{
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				
+				xmlhttp.onreadystatechange = function(){
+					
+					if(xmlhttp.readyState==4&&xmlhttp.status==200){
+						
+						var text = xmlhttp.responseText;
+						
+						if(email.value.length>0){
+							if(text=="yes"){
+
+							a.innerHTML = "Congradulation! This email hasnt been used";
+							a.style.color = "green";
+						}else if(text=="no"){
+							a.innerHTML = "Sorry! You this email is used";
+							a.style.color = "red";
+						}
+							a.style.textAlign = "center";
+							a.style.fontSize = "medium";
+						}
+					}
+				};
+				var e =  email.value;
+				var url = '<?php echo site_url('user/findByEmail');?>';
+      			url+='?email='+e;
+				
+				xmlhttp.open("get",url,true);
+				xmlhttp.send();
+		}
+
+		function validate_Name(){
+				
+				var username = document.getElementById("username");
+				
+				var xmlhttp;
+				var a = document.getElementById("ajax2");
+				if(window.XMLHttpRequest){
+					xmlhttp = new XMLHttpRequest();
+				}else{
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				
+				xmlhttp.onreadystatechange = function(){
+					
+					if(xmlhttp.readyState==4&&xmlhttp.status==200){
+						var text = xmlhttp.responseText;
+						
+						if(username.value.length>0){
+							if(text=="yes"){
+
+							a.innerHTML = "Congradulation! This user_name hasnt been used";
+							a.style.color = "green";
+						}else if(text=="no"){
+							a.innerHTML = "Sorry! You this user_name is used";
+							a.style.color = "red";
+						}
+							a.style.textAlign = "center";
+							a.style.fontSize = "medium";
+						}
+					}
+				};
+				var u =  username.value;
+				var url = '<?php echo site_url('user/findByName');?>';
+      			url+='?user_name='+u;
+				
+				xmlhttp.open("get",url,true);
+				xmlhttp.send();
+		}
+		
+	</script>
+</body>
+</html>

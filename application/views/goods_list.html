@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title></title>
+<link href="<?php echo base_url('application/views/styles/general.css'); ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url('application/views/styles/main.css'); ?>" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<h1>
+	<span class="action-span"><a href="<?php echo site_url('admin/goods/add'); ?>">Add New Products</a></span>
+	<span class="action-span1"><a href="index.php?act=main">SHOP Management Center</a> </span><span id="search_id" class="action-span1"> - Product List </span>
+	<div style="clear:both"></div>
+</h1>
+
+<div class="form-div">
+  <form action="<?php echo site_url('admin/goods/search'); ?>" name="searchForm" method="post">
+    <img src="<?php echo base_url('application/views/images/icon_search.gif'); ?>" width="26" height="22" border="0" alt="SEARCH">
+        <!-- Category -->
+    <select name="cat_id">
+		<option value="0">All Categories</option>
+		<?php foreach( $cates as $cate ): ?>
+		<option value="<?php echo $cate['cat_id'] ?>"><?php echo $cate['cat_name'] ?></option>
+		<?php endforeach; ?>
+	</select>
+    <!-- Brand -->
+    <select name="brand_id">
+		<option value="0">All Brands</option>
+		<?php foreach( $brands as $brand ): ?>
+		<option value="<?php echo $brand['brand_id'] ?>"><?php echo $brand['brand_name'] ?></option>
+		<?php endforeach; ?>
+	</select>
+
+	<!-- Key Word -->
+		Key Word <input type="text" name="keyword" size="15">
+		<input type="submit" value=" Search " class="button" >
+  </form>
+</div>
+
+<form method="post" action="" name="listForm" onsubmit="return confirmSubmit(this)">
+  <!-- start goods list -->
+	<div class="list-div" id="listDiv">
+		<table cellpadding="3" cellspacing="1">
+			<tbody>
+				<tr>
+					<th><input type="checkbox">ID</th>
+					<th>Prodcut Name</th>
+					<!-- <th>Product ID</th> -->
+					<th>Price</th>
+					<th>Putaway</th>
+					<th>Boutique</th>
+					<th>Latest</th>
+					<th>Hot</th>
+					<!-- <th>Sort by Recommandation</th> -->
+					<th>Stock</th>
+					<th>Opration</th>
+				</tr>
+				<tr></tr>
+				<?php foreach($goods as $good): ?>
+				<tr>
+					<td><input type="checkbox" name="checkboxes[]" value="<?php echo $good['goods_id'] ;?>"><?php echo $good["goods_id"] ;?></td>
+					<td class="first-cell"><span><?php echo $good['goods_name'] ;?></span></td>
+					<!-- <td><span><?php echo $good['goods_sn'] ;?></span></td> -->
+					<td align="right"><span><?php echo $good['shop_price'] ;?></span></td>
+					<?php if($good['is_onsale']==1): ?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/yes.gif'); ?>" onclick=""></td>
+					<?php else:?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/no.gif'); ?>" onclick=""></td>
+					<?php endif;?>
+
+					<?php if($good['is_best']==1): ?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/yes.gif'); ?>" onclick=""></td>
+					<?php else:?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/no.gif'); ?>" onclick=""></td>
+					<?php endif;?>
+
+					<?php if($good['is_new']==1): ?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/yes.gif'); ?>" onclick=""></td>
+					<?php else:?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/no.gif'); ?>" onclick=""></td>
+					<?php endif;?>
+
+					<?php if($good['is_hot']==1): ?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/yes.gif'); ?>" onclick=""></td>
+					<?php else:?>
+					<td align="center"><img src="<?php echo base_url('application/views/images/no.gif'); ?>" onclick=""></td>
+					<?php endif;?>
+
+					<!-- <td align="center"><span onclick=""><?php echo $good['goods_number'] ;?></span></td> -->
+					<td align="right"><span onclick=""><?php echo $good['goods_number'] ;?></span></td>
+					<td align="center">
+
+						<a href="<?php echo site_url('admin/goods/edit').'/'.$good['goods_id']; ?>" title="Edit"><img src="<?php echo base_url('application/views/images/icon_edit.gif');?>" width="16" height="16" border="0"></a>
+						<a href="<?php echo site_url('admin/goods/delete').'/'.$good['goods_id'];?>" onclick="listTable.remove(32, 'Do You Want to Put This Item into Recyle Bin?')" title="Recyle"><img src="<?php echo base_url('application/views/images/icon_trash.gif');?>" width="16" height="16" border="0"></a>
+						<a href="goods.php?act=product_list&amp;goods_id=32" title="Product List"><img src="<?php echo base_url('application/views/images/icon_docs.gif');?>" width="16" height="16" border="0"></a>
+					</td>
+				</tr>
+			<?php endforeach ;?>
+  </tbody>
+ </table>
+<!-- end goods list -->
+
+	<!-- Paging -->
+	<table id="page-table" cellspacing="0">
+		<tbody>
+			<tr>
+      		<td align="right" nowrap="true" colspan="6" style="background-color: rgb(255, 255, 255);">
+            <!-- $Id: page.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+            <div id="turn-page">
+            <?php echo $pageinfo;?>
+            </div>
+      		</td>
+   			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div>
+	<input type="hidden" name="act" value="batch">
+	<select name="type" id="selAction" onchange="changeAction()">
+		<option value="">Please Choose...</option>
+		<option value="trash">Recycle</option>
+		<option value="on_sale">Putaway</option>
+		<option value="not_on_sale">Sold out</option>
+		<option value="best">Boutique</option>
+		<option value="not_best">Remove Boutique</option>
+		<option value="new">Latest</option>
+		<option value="not_new">Remove Latest</option>
+		<option value="hot">Hot</option>
+		<option value="not_hot">Remove Hot</option>
+		<option value="move_to">Move to Category</option>
+		<option value="suppliers_move_to">Move to Provider</option>
+	</select>
+
+    <input type="hidden" name="extension_code" value="">
+    <input type="submit" value=" Submit " id="btnSubmit" name="btnSubmit" class="button" disabled="true">
+</div>
+</form>
+
+<div id="footer">
+	Copyright &copy; WPL @ Fall 2016
+</div>
+</body>
+</html>

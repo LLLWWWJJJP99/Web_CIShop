@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>M-Mobile Homepage</title>
+	<link rel="stylesheet" href="<?php echo base_url('themes/default/css/base.css');?>" type="text/css" />
+	<link rel="stylesheet" href="<?php echo base_url('themes/default/css/shop_common.css');?>" type="text/css" />
+	<link rel="stylesheet" href="<?php echo base_url('themes/default/css/shop_header.css');?>" type="text/css" />
+    <link rel="stylesheet" href="<?php echo base_url('themes/default/css/shop_home.css');?>" type="text/css" />
+    <script type="text/javascript" src="<?php echo base_url('themes/default/js/jquery.js');?>" ></script>
+    <script type="text/javascript" src="<?php echo base_url('themes/default/js/topNav.js');?>" ></script>
+    <script type="text/javascript" src="<?php echo base_url('themes/default/js/focus.js');?>" ></script>
+    <script type="text/javascript" src="<?php echo base_url('themes/default/js/shop_home_tab.js');?>" ></script>
+</head>
+<body>
+	<!-- Header  -wll-2013/03/24 -->
+	<div class="shop_hd">
+		<!-- Header TopNav -->
+		<div class="shop_hd_topNav">
+			<div class="shop_hd_topNav_all">
+				<!-- Header TopNav Left -->
+				<div class="shop_hd_topNav_all_left">
+					<?php $user = $this->session->userdata('user');
+					?>
+					<?php if(empty($user)) :?>
+					<p>HELLO, Welcome to<b><a href="<?php echo base_url('/');?>">M-Mobile</a></b>[<a href="<?php echo site_url('user/login') ;?>">Login</a>][<a href="<?php echo site_url('user/register') ;?>">Register</a>]</p>
+					<?php else:?>
+					<p>HELLO, <?php echo $user['user_name'] ?> Welcome to <b><a href="/">M-Mobile</a></b>[<a href="<?php echo site_url('user/signout') ;?>">Sign&nbsp;Out</a>]</p>
+					<?php endif ;?>
+				</div>
+				<!-- Header TopNav Left End -->
+
+				<!-- Header TopNav Right -->
+				<div class="shop_hd_topNav_all_right">
+					<ul class="topNav_quick_menu">
+						<li>
+							<div class="topNav_menu">
+								<a href="#" class="topNavHover">My Shop<i></i></a>
+								<div class="topNav_menu_bd" style="display:none;" >
+						            <ul>
+						              <li><a title="Order History" target="_top" href="<?php echo site_url('user/order'); ?>">Order History</a></li>
+						              <li><a title="My Homepage" target="_top" href="<?php echo base_url('/');?>">Homepage</a></li>
+						            </ul>
+						        </div>
+							</div>
+						</li>
+
+						<li>
+							<div class="topNav_menu">
+								<a href="<?php echo site_url('cart/index') ;?>" class="topNavHover">Shopping Cart has <b><?php echo $this->cart->total_items(); ?></b> items <i></i></a>
+								<div class="topNav_menu_bd" style="display:none;">
+
+						        </div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- Header TopNav Right End -->
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		<!-- Header TopNav End -->
+
+		<!-- TopHeader Center -->
+		<div class="shop_hd_header">
+			<div class="shop_hd_header_logo"><h1 class="logo"><a href="<?php echo base_url('/');?>"><img src="<?php echo base_url('public/uploads/logo.png');?>" alt="M-Mobile" /></a><span>M-Mobile</span></h1></div>
+			<div class="shop_hd_header_search">
+                            <ul class="shop_hd_header_search_tab">
+			        <li id="search" class="current">Product</li>
+			        <!-- <li id="shop_search">Shop</li> -->
+			    </ul>
+                            <div class="clear"></div>
+			    <div class="search_form">
+			    	<form method="post" action="<?php echo site_url('goods/search'); ?>">
+			    		<div class="search_formstyle">
+			    			<input type="text" class="search_form_text" name="keyword" value="Search is Easy!" />
+			    			<input type="submit" class="search_form_sub" name="secrch_submit" value="" title="Search" />
+			    		</div>
+			    	</form>
+			    </div>
+                            <div class="clear"></div>
+			    <div class="search_tag">
+						<!-- <a href="">IPhone</a>
+					    	<a href="">Nokia</a>
+					    	<a href="">Sumsung</a>
+					    	<a href="">BlackBerry</a>
+					    	<a href="">Lenovo</a> -->
+			    </div>
+					</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<!-- TopHeader Center End -->
+
+		<!-- Header Menu -->
+		<div class="shop_hd_menu">
+			<!-- All Product Menu  -->
+
+			<div class="shop_hd_menu_all_category shop_hd_menu_hover"><!-- Delete id="shop_hd_menu_all_category" 加上clsss shop_hd_menu_hover -->
+				<div class="shop_hd_menu_all_category_title"><h2 title="All Categories"><a href="javascript:void(0);">All Product Catrgory</a></h2><i></i></div>
+				<div id="shop_hd_menu_all_category_hd" class="shop_hd_menu_all_category_hd">
+					<ul class="shop_hd_menu_all_category_hd_menu clearfix">
+						<!-- Single Menu -->
+						<?php foreach($cates as $k => $v): ?>
+						<li id="cat_1" class="">
+							<h3><a href="<?php echo site_url('goods/cates_search').'/'.$v['cat_id'];?>" title="<?php echo $v['cat_name'] ;?>"><?php echo $v['cat_name'] ;?></a></h3>
+							<div id="cat_1_menu" class="cat_menu clearfix" style="">
+							<?php foreach($v['child'] as $k2 => $v2): ?>
+								<dl class="clearfix">
+
+									<dt><a href="<?php echo site_url('goods/cates_search').'/'.$v2['cat_id'];?>"><?php echo $v2['cat_name'] ;?></a></dt>
+									<dd>
+										<?php foreach($v2['child'] as $k3 =>$v3) :?>
+										<a href="<?php echo site_url('goods/cates_search').'/'.$v3['cat_id'];?>"><?php echo $v3['cat_name'] ;?></a>
+										<?php endforeach ;?>
+									</dd>
+								</dl>
+							<?php endforeach ;?>
+							</div>
+						</li>
+					    <?php endforeach ;?>
+						<!-- Single Menu End -->
+            <li class="more"><a href="">Check More Category.</a></li>
+					</ul>
+				</br>
+					<!-- First Block   -->
+							<!-- Right block -->
+					<table>
+						<tr>
+							<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo site_url('user/login') ;?>"><img src="<?php echo base_url('public/uploads/login.png');?>" height="40px" width="40px" alt="login"></img></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</td>
+						<td>
+							<a href="<?php echo site_url('user/register') ;?>"><img src="<?php echo base_url('public/uploads/register.jpg');?>" height="40px" width="40px" alt="login"></img></a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href = "<?php echo site_url('user/login') ;?>" align = "center"> Login</a>
+						</td>
+						<td>
+							<a href = "<?php echo site_url('user/register') ;?>" align ="center"> Register</a>
+						</td>
+					</tr>
+					</table>
+				</div>
+			</div>
+			<!-- All Product Menu END -->
+
+			<!-- Navigation Menu -->
+			<!-- <ul class="shop_hd_menu_nav">
+				<li class="current_link"><a href=""><span>Homepage</span></a></li>
+				<li class="link"><a href=""><span>Group Bying</span></a></li>
+				<li class="link"><a href=""><span>Brand</span></a></li>
+				<li class="link"><a href=""><span>Coupon</span></a></li>
+				<li class="link"><a href=""><span>Credits Center</span></a></li>
+				<li class="link"><a href=""><span>Sports</span></a></li>
+				<li class="link"><a href=""><span>E-Shop</span></a></li>
+			</ul> -->
+			<!-- Navigation Menu End -->
+		</div>
+		<!-- Header Menu End -->
+
+
+	<div class="clear"></div>
+	<!-- Header End -->
+
+	<div class="shop_bd clearfix">
+
+		<!-- Second Block -->
+		<div class="shop_bd_top clearfix">
+				<div class="shop_bd_top_left"></div>
+				<!-- Special Recommand -->
+				<div class="shop_bd_top_center">
+				<div class="shop_bd_tuijian">
+						<ul class="tuijian_tabs">
+								<li class="hover"  onmouseover="easytabs('1', '1');" onfocus="easytabs('1', '1');" onclick="return false;" id="tuijian_content_btn_1"><a href="javascript:void(0);">Special Recommand</a></li>
+								<li onmouseover="easytabs('1', '2');" onfocus="easytabs('1', '2');" onclick="return false;" id="tuijian_content_btn_2" ><a href="javascript:void(0);">Hot Product</a></li>
+								<li onmouseover="easytabs('1', '3');" onfocus="easytabs('1', '3');" onclick="return false;" id="tuijian_content_btn_3"><a href="javascript:void(0);">Latest Product</a></li>
+						</ul>
+						<div class="tuijian_content">
+								<div id="tuijian_content_1" class="tuijian_shangpin" style="display: block;">
+										<ul>
+											<?php foreach($hot_goods as $hot_good): ?>
+												<?php if($hot_good['is_onsale']==1 ) :?>
+												<li>
+														<dl>
+																<dt><a href="<?php echo site_url('goods/index').'/'.$hot_good['goods_id'] ;?>"><img src="<?php echo base_url('public/uploads').'/'.$hot_good['goods_thumb'] ;?>" /></a></dt>
+																<dd><a href="<?php echo site_url('goods/index').'/'.$hot_good['goods_id'] ;?>"><?php echo $hot_good['goods_name'] ;?></a></dd>
+																<dd> Price：<em><?php echo $hot_good['shop_price'] ;?></em>Dollar</dd>
+														</dl>
+												</li>
+													<?php endif;?>
+											<?php endforeach; ?>
+										</ul>
+								</div>
+
+								<div id="tuijian_content_2" class="tuijian_shangpin">
+										<ul>
+											<?php foreach($best_goods as $best_good): ; ?>
+												<?php if($best_good['is_onsale']==1 ) :?>
+												<li>
+														<dl>
+																<dt><a href="<?php echo site_url('goods/index').'/'.$best_good['goods_id']; ?>"><img src="<?php echo base_url('public/uploads').'/'.$best_good['goods_thumb'] ;?>" /></a></dt>
+																<dd><a href="<?php echo site_url('goods/index').'/'.$best_good['goods_id']; ?>"><?php echo $best_good['goods_name'] ;?></a></dd>
+																<dd> Price：<em><?php echo $best_good['shop_price'] ;?></em> Dollar</dd>
+														</dl>
+												</li>
+													<?php endif;?>
+				<?php endforeach ;?>
+										</ul>
+								</div>
+								<div id="tuijian_content_3" class="tuijian_shangpin tuijian_content">
+										<ul>
+											<?php foreach($new_goods as $new_good): ?>
+												<?php if($new_good['is_onsale']==1 ) :?>
+												<li>
+														<dl>
+																<dt><a href="<?php echo site_url('goods/index').'/'.$new_good['goods_id']; ?>"><img src="<?php echo base_url('public/uploads').'/'.$new_good['goods_thumb'] ;?>" /></a></dt>
+																<dd><a href="<?php echo site_url('goods/index').'/'.$new_good['goods_id']; ?>"><?php echo $new_good['goods_name']; ?></a></dd>
+																<dd>Price：<em><?php echo $new_good['shop_price']; ?></em>Dollar</dd>
+														</dl>
+												</li>
+													<?php endif;?>
+												<?php endforeach; ?>
+										</ul>
+								</div>
+
+						</div>
+
+				</div>
+				<!-- Special Recommand End -->
+				
+
+									
+
+
+				<div class="clear"></div>
+				<div class="shop_bd_home_block clearfix">
+						<!-- middle -->
+						<div class="shop_bd_home_block_center">
+								<ul class="tabs-nav">
+										<li><a href="javascript:void(0);">CellPhones</a></li>
+								</ul>
+								<div class="tabs-panel">
+										<ul>
+												<?php $_count2 =0;?>
+												<?php foreach($all_goods as $good): ?>
+														<?php $_count2++;?>
+														<?php if($_count2<=9):?>
+														<?php if($good['is_onsale']==1 ) :?>
+														<li>
+																<dl>
+																		<dt><a href="<?php echo site_url('goods/index').'/'.$good['goods_id']; ?>"><img src="<?php echo base_url('public/uploads').'/'.$good['goods_thumb'] ;?>" /></a></dt>
+																		<dd><a href="<?php echo site_url('goods/index').'/'.$good['goods_id']; ?>"><?php echo $good['goods_name']; ?></a></dd>
+																		<dd>Price：<em><?php echo $good['shop_price']; ?></em>Dollar</dd>
+																</dl>
+														</li>
+														<?php endif ;?>
+														<?php endif;?>
+										<?php endforeach; ?>
+
+										</ul>
+								</div>
+						</div>
+						<!-- middle End -->
+
+						<!-- rank -->
+						<div class="shop_bd_home_block_right">
+								<div class="title"><h3>Product Rank</h3></div>
+								<ol class="saletop-list">
+								<?php $_count =0;?>
+								<?php foreach($ranks as $rank): ?>
+									<?php $_count++;?>
+									<?php if($_count<=3):?>
+										<li class="top clearfix">
+												<dl>
+														<dt class="goods-name">
+																<a href="<?php echo site_url('goods/index').'/'.$rank['goods_id']; ?>"><?php echo $rank['goods_name'] ?></a>
+														</dt>
+														<dd class="nokey"><?php echo $_count ?></dd>
+														<dd class="goods-pic">
+																<a href="<?php echo site_url('goods/index').'/'.$rank['goods_id']; ?>"><span class="thumb size60"><img src="<?php echo base_url('public/uploads').'/'.$rank['goods_thumb'] ;?>" /></span></a>
+														</dd>
+														<dd class="goods-price"><em><?php echo $rank['shop_price'] ?></em></dd>
+												</dl>
+										</li>
+									<?php else:?>
+										<li class="normal">
+												<i><?php echo $_count ?></i>
+												<a href="<?php echo site_url('goods/index').'/'.$rank['goods_id']; ?>"><?php echo $rank['goods_name'] ?></a>
+										</li>
+									<?php endif ;?>
+								<?php endforeach ;?>
+								</ol>
+								<!-- <div class="saletop-list_adv_pic"><a href=""><img src="<?php echo base_url('themes/default/images/web-3-38_ff9bd2d724f7138cec1b1937000f4feb.jpg');?>" /></a></div> -->
+						</div>
+						<!-- rank -->
+						<!-- brand display End -->
+				</div>
+		</div>
+	</div>
+		<!-- Right Block End -->
+
+
+	<div class="clear"></div>
+	<!-- Fist Block End -->
+
+            <!-- the forth block -->
+
+	<!-- Body End -->
+
+
+</div>
+
+	<!-- Footer End -->
+</body>
+</html>

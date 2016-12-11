@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>SHOP Management Center - Manage Brands </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<?php echo base_url('application/views/styles/general.css'); ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url('application/views/styles/main.css'); ?>" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<h1>
+<span class="action-span"><a href="brand.php?act=list">Product Brand</a></span>
+<span class="action-span1"><a href="index.php?act=main">SHOP Management Center</a> </span><span id="search_id" class="action-span1"> - Edit Brand Infomation </span>
+<div style="clear:both"></div>
+</h1>
+
+<div class="main-div">
+<form method="post" action="<?php echo site_url('admin/brand/update'); ?>" name="theForm" enctype="multipart/form-data" onsubmit="">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tbody><tr>
+    <td class="label">Brand Name</td>
+    <td><input type="text" name="brand_name" maxlength="60" value="<?php echo $cur_brand['brand_name'] ?>"><span class="require-field">*</span></td>
+  </tr>
+  <tr>
+    <td class="label">Brand Web Address</td>
+    <td><input type="text" name="url" maxlength="60" size="40" value="<?php echo $cur_brand['url'] ?>"></td>
+  </tr>
+  <tr>
+    <td class="label"><a href="javascript:showNotice('warn_brandlogo');" title="Click Here for Prompt Message">
+        <img src="<?php echo base_url('public/uploads').'/'.$cur_brand['logo']; ?>" width="16" height="16" border="0" alt="Click Here for Prompt Message"></a>Brand LOGO</td>
+    <td><input type="file" name="logo" id="logo" size="45">    <br>
+		<?php  if(empty($cur_brand['logo'])) :?>
+		<span class="notice-span" style="display:block" id="warn_brandlogo">Please Upload Photo as Brand's LOGO! </span>
+		<?php else :?>
+		<span class="notice-span" style="display:block" id="warn_brandlogo">You Have Uploaded Photo, it Will be covered When Uploaded again!</span>
+		<?php endif;?>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">Brand Description</td>
+    <td><textarea name="brand_desc" cols="60" rows="4"><?php echo $cur_brand['brand_desc'] ?></textarea></td>
+  </tr>
+  <tr>
+    <td class="label">Sort</td>
+    <td><input type="text" name="sort_order" maxlength="40" size="15" value="<?php echo $cur_brand['sort_order'] ?>"></td>
+  </tr>
+  <tr>
+    <td class="label">Display or Not</td>
+    <td>
+		<input type="radio" name="is_show" value="1" <?php echo $cur_brand['is_show']==1?'checked':'' ;?>> Yes
+		<input type="radio" name="is_show" value="0" <?php echo $cur_brand['is_show']==0?'checked':'' ;?>> No        (If no products under the brand, it will not display to customers.)
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><br>
+      <input type="submit" class="button" value=" Submit ">
+      <input type="reset" class="button" value=" Reset ">
+      <input type="hidden" name="act" value="update">
+	  <input type="hidden" name="brand_id" value="<?php echo $cur_brand['brand_id'] ;?>">
+    <!-- <input type="hidden" name="logo" value="<?php echo $cur_brand['logo'] ;?>"> -->
+    </td>
+  </tr>
+</tbody></table>
+</form>
+</div>
+
+
+<div id="footer">
+	Copyright &copy; WPL @ Fall 2016 </div>
+</div>
+
+</body>
+</html>

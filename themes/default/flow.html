@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>My Cart</title>
+
+	<link rel="stylesheet" href="<?php echo base_url('themes/default/css/shop_common.css');?>" type="text/css" />
+	<link rel="stylesheet" href="<?php echo base_url('themes/default/css/base.css');?>" type="text/css" />
+	<link rel="stylesheet" href="<?php echo base_url('themes/default/css/shop_header.css');?>" type="text/css" />
+	<link rel="stylesheet" href="<?php echo base_url('themes/default/css/shop_gouwuche.css');?>" type="text/css" />
+	<script type="text/javascript" src="<?php echo base_url('themes/default/js/jquery.js');?>" ></script>
+    <script type="text/javascript" src="<?php echo base_url('themes/default/js/topNav.js');?>" ></script>
+    <script type="text/javascript" src="<?php echo base_url('themes/default/js/jquery.goodnums.js');?>" ></script>
+    <script type="text/javascript" src="<?php echo base_url('themes/default/js/shop_gouwuche.js');?>" ></script>
+</head>
+<body>
+		<!-- Header  -wll-2013/03/24 -->
+	<div class="shop_hd">
+		<!-- Header TopNav -->
+		<div class="shop_hd_topNav">
+			<div class="shop_hd_topNav_all">
+				<!-- Header TopNav Left -->
+				<div class="shop_hd_topNav_all_left">
+					<p>Hi, Welcome to<b><a href="<?php echo base_url('/');?>">M-Mobile!</a></p>
+				</div>
+				<!-- Header TopNav Left End -->
+
+				<!-- Header TopNav Right -->
+				<div class="shop_hd_topNav_all_right">
+					<ul class="topNav_quick_menu">
+
+						<li>
+							<div class="topNav_menu">
+								<a href="#" class="topNavHover">My Shop<i></i></a>
+								<div class="topNav_menu_bd" style="display:none;" >
+						            <ul>
+						              <li><a title="Order History" target="_top" href="<?php echo site_url('user/order'); ?>">Order History</a></li>
+						              <li><a title="My Homepage" target="_top" href="<?php echo site_url('home/index'); ?>">Homepage</a></li>
+						            
+						            </ul>
+						        </div>
+							</div>
+						</li>
+                                                <li>
+						</li>
+
+						<li>
+							<div class="topNav_menu">
+								<a href="#" class="topNavHover">Shopping Cart has <b><?php echo $this->cart->total_items(); ?></b> items<i></i></a>
+								<div class="topNav_menu_bd" style="display:none;">
+									<!--
+						            <ul>
+						              <li><a title="Sold out" target="_top" href="#">Sold Out</a></li>
+						              <li><a title="On Sale" target="_top" href="#">On Sale</a></li>
+						            </ul>
+						        	-->
+						        </div>
+							</div>
+						</li>
+
+						<!-- <li>
+							<div class="topNav_menu">
+								<a href="#" class="topNavHover">My Favorites<i></i></a>
+								<div class="topNav_menu_bd" style="display:none;">
+						            <ul>
+						              <li><a title="Favourite Products" target="_top" href="#">Favourite Products</a></li>
+						              <li><a title="Favourite Shop" target="_top" href="#">Favourite Shop</a></li>
+						            </ul>
+						        </div>
+							</div>
+						</li>
+
+						<li>
+							<div class="topNav_menu">
+								<a href="#">Site Message</a>
+							</div>
+						</li> -->
+
+					</ul>
+				</div>
+				<!-- Header TopNav Right End -->
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		<!-- Header TopNav End -->
+
+		<!-- TopHeader Center -->
+		<div class="shop_hd_header">
+			<div class="shop_hd_header_logo"><h1 class="logo"><a href="<?php echo base_url('/') ;?>"><img src="<?php echo base_url('public/uploads/logo.png') ;?>" alt="ShopCZ" /></a><span>M-Mobile</span></h1></div>
+			<div class="shop_hd_header_search">
+                            <ul class="shop_hd_header_search_tab">
+			        <li id="search" class="current">Product</li>
+			        <!-- <li id="shop_search">Shop</li> -->
+			    </ul>
+                            <div class="clear"></div>
+			    <div class="search_form">
+			    	<form method="post" action="index.php">
+			    		<div class="search_formstyle">
+			    			<input type="text" class="search_form_text" name="search_content" value="Search is Easy!" />
+			    			<input type="submit" class="search_form_sub" name="secrch_submit" value="" title="Search" />
+			    		</div>
+			    	</form>
+			    </div>
+                            <div class="clear"></div>
+			    <div class="search_tag">
+			    	<a href="">Apple</a>
+			    	<a href="">Lenovo</a>
+			    	<a href="">Nokia</a>
+			    	<a href="">Blackberry</a>
+			    	<a href="">Sumsung</a>
+			    </div>
+
+			</div>
+		</div>
+		<div class="clear"></div>
+		<!-- TopHeader Center End -->
+
+		<!-- Header Menu -->
+		<div class="shop_hd_menu">
+			<!-- Product Menu -->
+
+			<div id="shop_hd_menu_all_category" class="shop_hd_menu_all_category"><!-- Homepage Delete id="shop_hd_menu_all_category" 加上clsss shop_hd_menu_hover -->
+				<div id="shop_hd_menu_all_category_hd" class="shop_hd_menu_all_category_hd">
+				</div>
+			</div>
+			<!-- All Menu END -->
+
+			<!-- Navigation Menu -->
+			<!-- <ul class="shop_hd_menu_nav">
+				<li class="current_link"><a href=""><span>Homepage</span></a></li>
+				<li class="link"><a href=""><span>Group Bying</span></a></li>
+				<li class="link"><a href=""><span>Brand</span></a></li>
+				<li class="link"><a href=""><span>Coupon</span></a></li>
+				<li class="link"><a href=""><span>Credits Center</span></a></li>
+				<li class="link"><a href=""><span>Sports</span></a></li>
+				<li class="link"><a href=""><span>E-Shop</span></a></li>
+			</ul> -->
+			<!-- Navigation Menu End -->
+		</div>
+		<!-- Header Menu End -->
+
+	</div>
+	<div class="clear"></div>
+
+	<div class="shop_hd_breadcrumb">
+		<strong>Current Location:</strong>
+		<span>
+			<a href="">Homepage</a>&nbsp;›&nbsp;
+			<a href="">My Shop</a>&nbsp;›&nbsp;
+			<a href="">My Cart</a>
+		</span>
+	</div>
+	<div class="clear"></div>
+
+
+	<!-- Header End -->
+
+	<!-- Cart Body -->
+	<div class="shop_gwc_bd clearfix">
+
+		<?php if(empty($carts)): ?>
+		<!-- Cart is Empty -->
+			<div class="empty_cart mb10">
+				<div class="message">
+					<p>Nothing in Your Cart, You Could Go to <a href="<?php echo site_url('home/index'); ?>">Homepage</a> to Look for Your Favorites!</p>
+				</div>
+			</div>
+		<!-- Cart is Empty end-->
+		<?php else: ?>
+		<!-- Have Product in Cart -->
+		<div class="shop_gwc_bd_contents clearfix">
+			<!-- Shopping Flow -->
+			<!-- Shopping Flow End -->
+
+			<!-- Cart List -->
+		<form action="<?php echo site_url('cart/pay'); ?>" method="post">
+			<table>
+				<thead>
+					<tr>
+						<th colspan="2"><span>Product</span></th>
+						<th><span>Price($)</span></th>
+						<th><span>Count</span></th>
+						<th><span>Total</span></th>
+						<th><span>Operation</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php $total_price=0; ?>
+					<?php foreach($carts as $cart) :?>
+					<?php $total_price+= $cart['subtotal'];?>
+					<?php $goods_thumb = $cart['options']['thumbs'];?>
+					<tr>
+						<td class="gwc_list_pic"><a href=""><img src="<?php echo base_url('public/uploads').'/'.$goods_thumb;?>" /></a></td><!-- <?php echo base_url('themes/default').'/'.$cart['goods_thumb'];?> -->
+						<td class="gwc_list_title"><a href=""><?php echo $cart['name'] ;?></a></td>
+						<td class="gwc_list_danjia"><span>$<strong id="danjia_001"><?php echo $cart['price'] ;?></strong></span></td>
+						<td class="gwc_list_shuliang">
+						<?php $xid = 'xiaoji_00'.$cart['id'] ;?>
+						<!-- <?php echo $xid ;?> -->
+						<span><a class="good_num_jian this_good_nums" did="danjia_001" xid="<?php echo $xid ;?>" ty="-" valId="<?php echo $cart['id'] ;?>" href="javascript:void(0);">-</a>
+						<input type="text" name="<?php echo 'qty['.$cart['id'].']';?>" value="<?php echo $cart['qty'];?>" id="<?php echo $cart['id'] ;?>" class="good_nums" />
+						<a href="javascript:void(0);" did="danjia_001" xid="<?php echo $xid ;?>" ty="+" class="good_num_jia this_good_nums" valId="<?php echo $cart['id'] ;?>">+</a></span></td>
+						<td class="gwc_list_xiaoji"><span>$<strong id="<?php echo $xid ;?>" class="good_xiaojis"><?php echo $cart['subtotal'] ;?></strong></span></td>
+						<td class="gwc_list_caozuo"><!-- <a href="">Favorites</a> --><a href="<?php echo site_url('cart/delete').'/'.$cart['rowid'] ;?>" class="shop_good_delete">Delete</a></td>
+						<td><input type="hidden" name="<?php echo 'id['.$cart['id'].']';?>" value="<?php echo $cart['id'] ?>"></td>
+						<td><input type="hidden" name="<?php echo 'id['.$cart['id'].']';?>" value="<?php echo $cart['id'] ?>"></td>
+					</tr>
+					<?php endforeach ;?>
+					<tr>
+						<td colspan="6">
+							<div class="gwc_foot_zongjia"><span>Total (Exclude Shipping Fee): <span>$<strong id="good_zongjia"><?php echo $total_price ?></strong></span></span></div>
+						</br>
+							<div class="clear"></div>
+							<div class="gwc_foot_links">
+								<a href="<?php echo site_url('home/index'); ?>" class="go">Back to HomePage</a>
+								<input type="submit" value="Place the Order">
+								<!-- <a href="" class="op">Confirm Address</a> -->
+							</div>
+							<!-- <input type="hidden" name="total_price" value="<?php echo $total_price ?>"> -->
+							<!-- <input type="hidden" name="goods_thumb" value="<?php echo $goods_thumb ?>"> -->
+							<!-- <input type="hidden" name="goods_id" value="<?php echo $cart['goods_id']; ?>"> -->
+						</td>
+					</tr>
+		</form>
+				</tbody>
+				<tfoot>
+
+				</tfoot>
+			</table>
+			<!-- Caet List End -->
+		</div>
+		<?php endif ?>
+		<!-- Have Prodcut in Cart end -->
+
+	</div>
+	<!-- Cart Body End -->
+
+	<!-- Footer - wll - 2013/3/24 -->
+	<div class="clear"></div>
+	<div class="shop_footer">
+            <div class="shop_footer_link">
+                <p>
+                    <a href="">Homepage</a>|
+                    <a href="">Career</a>|
+                    <a href="">Ad Cooperation</a>|
+                    <a href="">About ShopCZ</a>|
+                    <a href="">About Us</a>
+                </p>
+            </div>
+        </div>
+	<!-- Footer End -->
+
+</body>
+</html>
